@@ -33,6 +33,7 @@ public class ConfigReader {
                         if(line.startsWith("datapath:")) {
                             result = line.replaceAll(pattern, "");
                             result = result.replace('\"', ' ').toUpperCase().trim();
+                            return result.replace('\\', '/');
                         }
                     }
 
