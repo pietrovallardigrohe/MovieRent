@@ -1,13 +1,13 @@
 package UI;
 
 import Database.DB;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 public class LoginForm extends JFrame {
@@ -32,28 +32,42 @@ public class LoginForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-//                DB.db.verifyLogin(loginField.getText(), hash(passwordField.getPassword().toString()));
-                System.out.println(hash(passwordField.getPassword().toString()));
+                if(DB.db.verifyLogin(loginField.getText(), hash(passwordField.getPassword()))) {
+
+                    setVisible(false);
+                    new MainForm();
+
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "User or password incorrect");
+                }
 
             }
         });
 
     }
 
-    private String hash(String word) {
+    private String hash(char[] word) {
+
+        StringBuilder sb = new StringBuilder();
+        for(char c : word) {
+            sb.append(c);
+        }
+        String password = sb.toString();
 
 
-        if(word.trim() != "") {
+        if(password.trim() != "") {
 
             try {
-                //Fail
-                MessageDigest digest = MessageDigest.getInstance("SHA-256");
-                byte[] result = digest.digest(word.getBytes(StandardCharsets.UTF_8));
-                System.out.println(Base64.getEncoder().encodeToString(result));
+
+                MessageDigest md = MessageDigest.getInstance("SHA-256");
+                byte[] result = md.digest(password.getBytes(StandardCharsets.UTF_8));
+                return Base64.getEncoder().encodeToString(result);
+
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
             }
-            catch (Exception ex) {
-                ex.getStackTrace();
-            }
+
 
         }
 

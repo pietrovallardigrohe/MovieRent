@@ -3,6 +3,7 @@ package Database;
 import Rent.Client;
 import Rent.DVD;
 import Rent.Kart;
+import User.User;
 import Util.ConfigOption;
 import Util.ConfigReader;
 
@@ -41,6 +42,10 @@ public class TextDB implements IDatabase {
     @Override
     public List<DVD> getDVDs() {
         return null;
+    }
+
+    public boolean verifyLogin(String user, String password) {
+        return true;
     }
 
 }

@@ -23,4 +23,8 @@ public class OracleSQL implements IDatabase {
         return null;
     }
 
+    public boolean verifyLogin(String user, String password) {
+        return false;
+    }
+
 }
