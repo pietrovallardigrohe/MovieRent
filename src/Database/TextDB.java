@@ -48,4 +48,19 @@ public class TextDB implements IDatabase {
         return true;
     }
 
+    @Override
+    public boolean registerKart(Kart kart) {
+        return false;
+    }
+
+    @Override
+    public boolean registerClient(Client client) {
+        return false;
+    }
+
+    @Override
+    public boolean registerDVD(DVD dvd) {
+        return false;
+    }
+
 }

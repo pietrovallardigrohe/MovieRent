@@ -1,6 +1,6 @@
 package UI;
 
-import Database.DB;
+import Database.Database;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -32,7 +32,7 @@ public class LoginForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if(DB.db.verifyLogin(loginField.getText(), hash(passwordField.getPassword()))) {
+                if(Database.db.verifyLogin(loginField.getText(), hash(passwordField.getPassword()))) {
 
                     setVisible(false);
                     new MainForm();

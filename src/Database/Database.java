@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class DB {
+public class Database {
 
     public static IDatabase db = define(ConfigReader.read(ConfigOption.Database));
 

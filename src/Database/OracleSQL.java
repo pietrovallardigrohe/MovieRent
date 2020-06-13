@@ -27,4 +27,19 @@ public class OracleSQL implements IDatabase {
         return false;
     }
 
+    @Override
+    public boolean registerKart(Kart kart) {
+        return false;
+    }
+
+    @Override
+    public boolean registerClient(Client client) {
+        return false;
+    }
+
+    @Override
+    public boolean registerDVD(DVD dvd) {
+        return false;
+    }
+
 }

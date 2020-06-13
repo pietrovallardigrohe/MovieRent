@@ -2,20 +2,20 @@ package Rent;
 
 public class Client {
 
-    private int id;
+    private long CPF;
     private String name;
     private int idade;
 
-    public Client(int id, String name, int idade) {
+    public Client(long CPF, String name, int idade) {
 
-        this.id = id;
+        this.CPF = CPF;
         this.name = name;
         this.idade = idade;
 
     }
 
-    public int getId() {
-        return id;
+    public long getCPF() {
+        return CPF;
     }
 
     public String getName() {
@@ -26,8 +26,8 @@ public class Client {
         return idade;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCPF(int CPF) {
+        this.CPF = CPF;
     }
 
     public void setName(String name) {
@@ -41,7 +41,7 @@ public class Client {
     @Override
     public String toString() {
         return "Client{" +
-                "id=" + id +
+                "CPF=" + CPF +
                 ", name='" + name + '\'' +
                 ", idade=" + idade +
                 '}';
