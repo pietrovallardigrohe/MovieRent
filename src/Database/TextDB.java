@@ -1,9 +1,6 @@
 package Database;
 
-import Rent.Client;
-import Rent.DVD;
-import Rent.Kart;
-import User.User;
+import Rent.*;
 import Util.ConfigOption;
 import Util.ConfigReader;
 
@@ -61,6 +58,11 @@ public class TextDB implements IDatabase {
     @Override
     public boolean registerDVD(DVD dvd) {
         return false;
+    }
+
+    @Override
+    public int getKartId() {
+        return 0;
     }
 
 }

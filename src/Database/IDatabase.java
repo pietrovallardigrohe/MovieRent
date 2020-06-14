@@ -10,10 +10,12 @@ public interface IDatabase {
     public List<Client> getClients();
     public List<DVD> getDVDs();
 
-    int verifyLogin(String user, String password);
+    public boolean verifyLogin(String user, String password);
 
     public boolean registerKart(Kart kart);
     public boolean registerClient(Client client);
     public boolean registerDVD(DVD dvd);
+
+    public int getKartId();
 
 }

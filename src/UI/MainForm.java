@@ -18,6 +18,7 @@ public class MainForm extends JFrame{
     private JButton newClientButton;
     private JScrollPane scrollPane;
     private JButton manageUsersButton;
+    private JButton newDVDButton;
 
     public MainForm() {
 
@@ -58,6 +59,17 @@ public class MainForm extends JFrame{
 
             }
         });
+
+        newDVDButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                new NewDVDForm();
+
+            }
+        });
+
+
 
     }
 

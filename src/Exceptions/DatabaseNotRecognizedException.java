@@ -1,10 +1,10 @@
-package Database;
+package Exceptions;
 
 public class DatabaseNotRecognizedException extends RuntimeException{
 
     private String database;
 
-    DatabaseNotRecognizedException(String database) {
+    public DatabaseNotRecognizedException(String database) {
         this.database = database;
     }
 

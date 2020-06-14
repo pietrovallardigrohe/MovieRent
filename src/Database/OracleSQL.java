@@ -42,4 +42,9 @@ public class OracleSQL implements IDatabase {
         return false;
     }
 
+    @Override
+    public int getKartId() {
+        return 0;
+    }
+
 }

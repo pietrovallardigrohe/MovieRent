@@ -23,7 +23,6 @@ public class NewClientForm extends JFrame {
 
         setContentPane(root);
         setSize(500,300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2-this.getSize().width/2,Toolkit.getDefaultToolkit().getScreenSize().height/2-this.getSize().height/2 );
         setVisible(true);
 
@@ -33,7 +32,7 @@ public class NewClientForm extends JFrame {
 
                 try {
 
-                    Database.db.registerClient(new Client(Long.getLong(cpfField.getText().trim()), nameField.getText(), Integer.getInteger(ageField.getText().trim())));
+                    Database.db.registerClient(new Client(Long.parseLong(cpfField.getText().trim()), nameField.getText(), Integer.parseInt(ageField.getText().trim())));
 
                 }
                 catch (Exception ex) {
