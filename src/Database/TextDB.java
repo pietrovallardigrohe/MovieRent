@@ -13,7 +13,7 @@ public class TextDB implements IDatabase {
 
     public TextDB() {
 
-        String path = ConfigReader.read(ConfigOption.DataPath)+"/MovieRentDB";
+        String path = ConfigReader.read(ConfigOption.Datapath)+"/MovieRentDB";
 
         new File(path).mkdirs();
         try {
@@ -22,7 +22,9 @@ public class TextDB implements IDatabase {
             new File(path + "/DVDs.txt").createNewFile();
         }
         catch (IOException ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+
+            JOptionPane.showMessageDialog(null, ex.getMessage() + " " + ConfigReader.read(ConfigOption.Datapath));
+
         }
     }
 

@@ -2,19 +2,19 @@ package Rent;
 
 public class Client {
 
-    private long CPF;
     private String name;
-    private int idade;
+    private String CPF;
+    private int age;
 
-    public Client(long CPF, String name, int idade) {
+    public Client(String CPF, String name, int idade) {
 
         this.CPF = CPF;
         this.name = name;
-        this.idade = idade;
+        this.age = idade;
 
     }
 
-    public long getCPF() {
+    public String getCPF() {
         return CPF;
     }
 
@@ -22,11 +22,11 @@ public class Client {
         return name;
     }
 
-    public int getIdade() {
-        return idade;
+    public int getAge() {
+        return age;
     }
 
-    public void setCPF(int CPF) {
+    public void setCPF(String CPF) {
         this.CPF = CPF;
     }
 
@@ -34,8 +34,8 @@ public class Client {
         this.name = name;
     }
 
-    public void setIdade(int idade) {
-        this.idade = idade;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Client {
         return "Client{" +
                 "CPF=" + CPF +
                 ", name='" + name + '\'' +
-                ", idade=" + idade +
+                ", age=" + age +
                 '}';
     }
 

@@ -32,7 +32,7 @@ public class NewClientForm extends JFrame {
 
                 try {
 
-                    Database.db.registerClient(new Client(Long.parseLong(cpfField.getText().trim()), nameField.getText(), Integer.parseInt(ageField.getText().trim())));
+                    Database.db.registerClient(new Client(cpfField.getText().trim(), nameField.getText(), Integer.parseInt(ageField.getText().trim())));
 
                 }
                 catch (Exception ex) {

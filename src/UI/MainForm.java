@@ -69,7 +69,12 @@ public class MainForm extends JFrame{
             }
         });
 
-
+        newKartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new NewKartForm();
+            }
+        });
 
     }
 

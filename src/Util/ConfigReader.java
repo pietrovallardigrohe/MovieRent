@@ -27,7 +27,7 @@ public class ConfigReader {
                             return result.replace('\"', ' ').toUpperCase().trim();
                         }
                     }
-                    else if(option == ConfigOption.DataPath) {
+                    else if(option == ConfigOption.Datapath) {
 
                         String pattern = "^datapath:\\s";
                         if(line.startsWith("datapath:")) {
