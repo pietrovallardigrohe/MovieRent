@@ -1,16 +1,17 @@
 package Database;
 
 import Rent.*;
+import User.User;
 import Util.ConfigOption;
 import Util.ConfigReader;
 import Util.Hashing;
 
 import javax.swing.*;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class TextDB implements IDatabase {
 
@@ -79,13 +80,16 @@ public class TextDB implements IDatabase {
     public boolean registerUser(String username, String password, int securityLevel) {
 
         try {
+
             FileWriter writer = new FileWriter(usersPath, true);
             writer.write(String.format("%s;%s;%d\n", username, Hashing.hash(password), securityLevel));
             writer.close();
-            System.out.println("Wrote");
+
         }
         catch (Exception exception) {
+
             exception.printStackTrace();
+            
         }
 
         return true;
@@ -93,14 +97,109 @@ public class TextDB implements IDatabase {
     }
 
     @Override
-    public List<String> getUsernames() {
-        List list = new ArrayList();
-        list.add("a");
-        return list;
+    public List<User> getUsers() {
+
+        List<User> users = new ArrayList<>();
+
+        try {
+
+            Scanner scanner = new Scanner(new File(usersPath));
+
+
+            User user;
+            String[] line;
+
+            while(scanner.hasNextLine()) {
+
+                line = scanner.nextLine().split(";");
+                user = new User(line[0], line[1], Integer.parseInt(line[2]));
+                users.add(user);
+
+            }
+            scanner.close();
+
+        }
+        catch(Exception exception) {
+
+            exception.printStackTrace();
+            return null;
+
+        }
+
+        return users;
+
     }
 
     @Override
-    public void deleteUser(String username) {
+    public List<String> getUsernames() {
+
+        List<String> users = new ArrayList<>();
+
+        try {
+
+            Scanner scanner = new Scanner(new File(usersPath));
+            String line;
+
+            while(scanner.hasNextLine()) {
+
+                line = scanner.nextLine();
+                line = line.split(";")[0];
+                users.add(line);
+
+            }
+
+            scanner.close();
+
+        }
+        catch(IOException ex) {
+
+        }
+
+        return users;
+
+    }
+
+    @Override
+    public boolean deleteUser(String username) {
+
+        try {
+
+            Scanner scanner = new Scanner(new File(usersPath));
+
+            String user;
+            String line;
+            ArrayList<String> lines = new ArrayList<>();
+
+
+            while(scanner.hasNext()) {
+
+                line = scanner.nextLine();
+                user = line.split(";")[0];
+
+                if(!username.equals(user))
+                    lines.add(line);
+
+            }
+
+            scanner.close();
+
+            FileWriter writer = new FileWriter(new File(usersPath));
+
+            for(String l : lines) {
+                System.out.println("Wrote a line");
+                writer.write(l+"\n");
+            }
+
+            writer.close();
+
+        }
+        catch (Exception ex) {
+
+            ex.printStackTrace();
+            return false;
+        }
+
+        return true;
 
     }
 

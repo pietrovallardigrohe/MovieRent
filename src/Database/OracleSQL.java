@@ -3,6 +3,7 @@ package Database;
 import Rent.Client;
 import Rent.DVD;
 import Rent.Kart;
+import User.User;
 
 import java.util.List;
 
@@ -20,6 +21,11 @@ public class OracleSQL implements IDatabase {
 
     @Override
     public List<DVD> getDVDs() {
+        return null;
+    }
+
+    @Override
+    public List<User> getUsers() {
         return null;
     }
 
@@ -58,8 +64,8 @@ public class OracleSQL implements IDatabase {
     }
 
     @Override
-    public void deleteUser(String username) {
-
+    public boolean deleteUser(String username) {
+        return false;
     }
 
 }

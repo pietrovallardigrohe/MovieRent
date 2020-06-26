@@ -20,7 +20,7 @@ public class NewUserForm extends JFrame {
     private JButton enterButton;
     private JPanel root;
 
-    public NewUserForm() {
+    public NewUserForm(ManageUsersForm parent) {
 
         setContentPane(root);
         setSize(800, 600);
@@ -38,6 +38,8 @@ public class NewUserForm extends JFrame {
                     if(usernameField.getText().trim().length() == 0 || passwordField.getText().trim().length() == 0)
                         throw new Exception();
                     Database.db.registerUser(usernameField.getText(), Hashing.hash(passwordField.getText().toCharArray()), securityBox.getSelectedIndex());
+
+                    parent.updateTable();
 
                     dispose();
 

@@ -1,6 +1,8 @@
 package Database;
 
 import Rent.*;
+import User.User;
+
 import java.util.List;
 
 public interface IDatabase {
@@ -9,6 +11,7 @@ public interface IDatabase {
     public List<Kart> getKarts();
     public List<Client> getClients();
     public List<DVD> getDVDs();
+    public List<User> getUsers();
 
     public boolean verifyLogin(String user, String password);
 
@@ -20,6 +23,6 @@ public interface IDatabase {
 
     public boolean registerUser(String username, String password, int securityLevel);
     public List<String> getUsernames();
-    public void deleteUser(String username);
+    public boolean deleteUser(String username);
 
 }

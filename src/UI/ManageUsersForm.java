@@ -2,10 +2,12 @@ package UI;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Database.Database;
+import User.User;
 
 public class ManageUsersForm extends JFrame {
 
@@ -44,14 +46,14 @@ public class ManageUsersForm extends JFrame {
         table.addColumn("Password");
         table.addColumn("Security Level");
 
-        table.addRow(new String[] {"a","ab","bc"});
+        updateTable();
 
         addButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                new NewUserForm();
+                new NewUserForm(ManageUsersForm.this);
 
             }
 
@@ -62,12 +64,30 @@ public class ManageUsersForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                Database.db.deleteUser(table.getValueAt(usersTable.getSelectedRow(), 0).toString());
+                try {
+                    Database.db.deleteUser(table.getValueAt(usersTable.getSelectedRow(), 0).toString());
+                    updateTable();
+                }
+                catch (ArrayIndexOutOfBoundsException ex) {
+                    JOptionPane.showMessageDialog(null, "An user must be selected");
+                }
 
-                table.addRow(new String[] {"a","ab","b1c"});
             }
 
         });
+
+    }
+
+    void updateTable() {
+
+        DefaultTableModel table = (DefaultTableModel) usersTable.getModel();
+
+        table.setRowCount(0);
+        for(User user : Database.db.getUsers()) {
+
+            table.addRow(new String[] {user.getUsername(), user.getPassword(), String.valueOf(user.getSecurityLevel())});
+
+        }
 
     }
 
