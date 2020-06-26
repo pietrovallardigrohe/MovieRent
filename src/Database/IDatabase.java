@@ -18,4 +18,8 @@ public interface IDatabase {
 
     public int getKartId();
 
+    public boolean registerUser(String username, String password, int securityLevel);
+    public List<String> getUsernames();
+    public void deleteUser(String username);
+
 }

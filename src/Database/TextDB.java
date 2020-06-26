@@ -3,23 +3,31 @@ package Database;
 import Rent.*;
 import Util.ConfigOption;
 import Util.ConfigReader;
+import Util.Hashing;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TextDB implements IDatabase {
 
-    public TextDB() {
+    String path = ConfigReader.read(ConfigOption.Datapath)+"/MovieRentDB";
+    String usersPath = path + "/Users.txt";
+    String dvdsPath = path + "/DVDs.txt";
+    String kartsPath = path + "/Karts.txt";
+    String clientsPath = path + "/Clients.txt";
 
-        String path = ConfigReader.read(ConfigOption.Datapath)+"/MovieRentDB";
+    public TextDB() {
 
         new File(path).mkdirs();
         try {
-            new File(path + "/Clients.txt").createNewFile();
-            new File(path + "/Karts.txt").createNewFile();
-            new File(path + "/DVDs.txt").createNewFile();
+            new File(clientsPath).createNewFile();
+            new File(kartsPath).createNewFile();
+            new File(dvdsPath).createNewFile();
+            new File(usersPath).createNewFile();
         }
         catch (IOException ex){
 
@@ -65,6 +73,35 @@ public class TextDB implements IDatabase {
     @Override
     public int getKartId() {
         return 0;
+    }
+
+    @Override
+    public boolean registerUser(String username, String password, int securityLevel) {
+
+        try {
+            FileWriter writer = new FileWriter(usersPath, true);
+            writer.write(String.format("%s;%s;%d\n", username, Hashing.hash(password), securityLevel));
+            writer.close();
+            System.out.println("Wrote");
+        }
+        catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+        return true;
+
+    }
+
+    @Override
+    public List<String> getUsernames() {
+        List list = new ArrayList();
+        list.add("a");
+        return list;
+    }
+
+    @Override
+    public void deleteUser(String username) {
+
     }
 
 }

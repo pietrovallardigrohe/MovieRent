@@ -47,4 +47,19 @@ public class OracleSQL implements IDatabase {
         return 0;
     }
 
+    @Override
+    public boolean registerUser(String username, String password, int securityLevel) {
+        return false;
+    }
+
+    @Override
+    public List<String> getUsernames() {
+        return null;
+    }
+
+    @Override
+    public void deleteUser(String username) {
+
+    }
+
 }

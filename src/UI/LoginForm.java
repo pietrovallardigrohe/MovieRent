@@ -1,6 +1,8 @@
 package UI;
 
 import Database.Database;
+import Util.Hashing;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -32,7 +34,7 @@ public class LoginForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if(Database.db.verifyLogin(loginField.getText(), hash(passwordField.getPassword()))) {
+                if(Database.db.verifyLogin(loginField.getText(), Hashing.hash(passwordField.getPassword()))) {
 
                     setVisible(false);
                     new MainForm();
@@ -44,34 +46,6 @@ public class LoginForm extends JFrame {
 
             }
         });
-
-    }
-
-    private String hash(char[] word) {
-
-        StringBuilder sb = new StringBuilder();
-        for(char c : word) {
-            sb.append(c);
-        }
-        String password = sb.toString();
-
-
-        if(password.trim() != "") {
-
-            try {
-
-                MessageDigest md = MessageDigest.getInstance("SHA-256");
-                byte[] result = md.digest(password.getBytes(StandardCharsets.UTF_8));
-                return Base64.getEncoder().encodeToString(result);
-
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
-
-
-        }
-
-        return null;
 
     }
 

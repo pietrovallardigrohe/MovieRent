@@ -76,6 +76,13 @@ public class MainForm extends JFrame{
             }
         });
 
+        manageUsersButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ManageUsersForm();
+            }
+        });
+
     }
 
 }
