@@ -1,3 +1,4 @@
--- "text" / "oracle"
+-- "text"
 database: "Text"
+-- "caminho onde os arquivos serão salvos"
 datapath: "C:\Users\pietr\Desktop"
