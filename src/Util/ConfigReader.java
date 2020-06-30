@@ -11,9 +11,12 @@ public class ConfigReader {
 
         String result = null;
 
+        //  Deve-se alterar essa variável para o caminho no computador ou mante-la como "config" caso esteja na mesma
+        String configPath = "config";
+
         try {
 
-            BufferedReader reader = new BufferedReader(new FileReader("src/config"));
+            BufferedReader reader = new BufferedReader(new FileReader(configPath));
 
             String line = reader.readLine();
             while(line != null) {

@@ -8,10 +8,14 @@ import java.util.List;
 
 public class Main {
 
+    // Atenção, ir até a classe ConfigReader antes de rodar o programa
+
     public static void main(String[] args) {
 
         new LoginForm();
 
     }
+
+
 
 }
