@@ -1,4 +1,4 @@
-package User;
+package Rent;
 
 public class User {
 

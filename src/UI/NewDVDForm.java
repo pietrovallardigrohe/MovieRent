@@ -4,13 +4,11 @@ import javax.swing.*;
 import Database.Database;
 import Exceptions.DateNotRecognizedException;
 import Rent.DVD;
-import Util.DateReader;
+import Util.Date;
 
-import java.time.LocalDate;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 
 public class NewDVDForm extends JFrame {
 
@@ -37,7 +35,7 @@ public class NewDVDForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 try {
-                    Database.db.registerDVD(new DVD(nameField.getText(), Double.parseDouble(priceField.getText()), DateReader.readDate(releaseDateField.getText()), serialField.getText()));
+                    Database.db.registerDVD(new DVD(nameField.getText(), Double.parseDouble(priceField.getText()), Date.readDate(releaseDateField.getText()), serialField.getText()));
                 }
                 catch(NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Price invalid");

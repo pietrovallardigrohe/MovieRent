@@ -6,6 +6,11 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Database.Database;
+import Util.Date;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NewKartForm extends JFrame {
 
@@ -17,13 +22,18 @@ public class NewKartForm extends JFrame {
     private JScrollPane scrollPane;
     private JButton selectClientButton;
     private JButton selectDVDButton;
+    private JButton registerKartButton;
+    private JLabel dvdNameLabel;
+    private JLabel dvdReleaseDateLabel;
+    private JLabel priceLabel;
+    private JButton removeDVDButton;
+    private JTextField dueDateField;
+    private JLabel dueDateLabel;
 
     public static Client client;
-    public static DVD dvd;
+    public static List<DVD> dvds = new ArrayList<>();
 
-    public NewKartForm() {
-
-        NewKartForm thisForm = this;
+    public NewKartForm(MainForm mainForm) {
 
         setContentPane(root);
         setSize(800, 600);
@@ -48,22 +58,47 @@ public class NewKartForm extends JFrame {
         dvdTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         table.addColumn("Name");
-        table.addColumn("Release Date");
         table.addColumn("Price");
-
-        table.addRow(new String[] {"a","ab","bc"});
+        table.addColumn("Release Date");
 
         selectClientButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SelectClientForm(thisForm);
+                new SelectClientForm(NewKartForm.this);
             }
         });
 
         selectDVDButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SelectDVDForm(thisForm);
+                new SelectDVDForm(NewKartForm.this);
+            }
+        });
+
+        registerKartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if(client != null && dvds.size() > 0)
+                        Database.db.registerKart(new Kart(Database.db.getKartId(), client, dvds, Date.readDate(dueDateField.getText())));
+                    else
+                        JOptionPane.showMessageDialog(null, "There must be a client and a dvd");
+                    mainForm.update();
+
+                }
+                catch (Exception exception) {
+                    JOptionPane.showMessageDialog(null, "Unexpected error");
+                    exception.printStackTrace();
+                }
+
+            }
+        });
+
+        removeDVDButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dvds.remove(dvdTable.getSelectedRow());
+                table.removeRow(dvdTable.getSelectedRow());
             }
         });
 

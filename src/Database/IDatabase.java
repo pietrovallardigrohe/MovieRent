@@ -1,28 +1,32 @@
 package Database;
 
 import Rent.*;
-import User.User;
+import Rent.User;
 
 import java.util.List;
 
 public interface IDatabase {
 
 
-    public List<Kart> getKarts();
-    public List<Client> getClients();
-    public List<DVD> getDVDs();
-    public List<User> getUsers();
+    List<Kart> getKarts();
+    List<Client> getClients();
+    List<DVD> getDVDs();
 
-    public boolean verifyLogin(String user, String password);
 
-    public boolean registerKart(Kart kart);
-    public boolean registerClient(Client client);
-    public boolean registerDVD(DVD dvd);
+    boolean registerKart(Kart kart);
+    boolean registerClient(Client client);
+    boolean registerDVD(DVD dvd);
 
-    public int getKartId();
+    int getKartId();
 
-    public boolean registerUser(String username, String password, int securityLevel);
-    public List<String> getUsernames();
-    public boolean deleteUser(String username);
+    Client getClientByCPF(String cpf);
+
+    int verifyLogin(String user, String password);
+    boolean registerUser(String username, String password, int securityLevel);
+    List<User> getUsers();
+    List<String> getUsernames();
+    boolean deleteUser(String username);
+
+    Kart getKartById(int id);
 
 }

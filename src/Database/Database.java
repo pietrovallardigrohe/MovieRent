@@ -13,7 +13,6 @@ public class Database {
         switch(database) {
 
             case "TEXT" : return new TextDB();
-            case "ORACLE" : return new OracleSQL();
             default: throw new DatabaseNotRecognizedException(database);
 
         }

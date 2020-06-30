@@ -40,11 +40,9 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
-                "CPF=" + CPF +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                '}';
+
+        return String.format("%s;%s;%d", getCPF(), getName(), getAge());
+
     }
 
 }

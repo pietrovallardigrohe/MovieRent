@@ -1,5 +1,7 @@
 package UI;
 
+import Rent.Kart;
+import Database.Database;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -19,14 +21,19 @@ public class MainForm extends JFrame{
     private JScrollPane scrollPane;
     private JButton manageUsersButton;
     private JButton newDVDButton;
+    private JButton viewKartButton;
 
-    public MainForm() {
+    public MainForm(int security) {
 
         setContentPane(root);
         setSize(800, 600);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2-this.getSize().width/2,Toolkit.getDefaultToolkit().getScreenSize().height/2-this.getSize().height/2 );
+        manageUsersButton.setVisible(false);
+
+        if(security == 1)
+            manageUsersButton.setVisible(true);
 
         DefaultTableModel model = new DefaultTableModel() {
 
@@ -45,11 +52,12 @@ public class MainForm extends JFrame{
 
         openRentsTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
+        table.addColumn("Id");
         table.addColumn("Name");
         table.addColumn("Value");
         table.addColumn("Due");
 
-        table.addRow(new String[] {"a","ab","bc"});
+        update();
 
         newClientButton.addActionListener(new ActionListener() {
             @Override
@@ -72,7 +80,7 @@ public class MainForm extends JFrame{
         newKartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new NewKartForm();
+                new NewKartForm(MainForm.this);
             }
         });
 
@@ -82,6 +90,28 @@ public class MainForm extends JFrame{
                 new ManageUsersForm();
             }
         });
+
+        viewKartButton.addActionListener(e -> {
+
+            new ViewKartForm(Database.db.getKartById(Integer.parseInt(table.getValueAt(openRentsTable.getSelectedRow(), 0).toString())));
+
+        });
+
+    }
+
+    public void update() {
+
+        DefaultTableModel table = (DefaultTableModel) openRentsTable.getModel();
+
+        for(int i = 0; i < table.getRowCount(); i++) {
+            table.removeRow(i);
+        }
+
+        for(Kart kart : Database.db.getKarts()) {
+
+            table.addRow(new String[] {String.valueOf(kart.getId()), kart.getClient().getName(), String.valueOf(kart.getValue()), kart.getDueDate().toString()});
+
+        }
 
     }
 

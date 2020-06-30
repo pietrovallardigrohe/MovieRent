@@ -2,6 +2,7 @@ package UI;
 
 import Database.Database;
 import Rent.Client;
+import Rent.DVD;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -43,8 +44,6 @@ public class SelectClientForm extends JFrame {
         table.addColumn("CPF");
         table.addColumn("Age");
 
-        table.addRow(new String[] {"a","ab","2"});
-
         for(Client client : Database.db.getClients()) {
 
             table.addRow(new String[] {client.getName(), client.getCPF(), String.valueOf(client.getAge())});
@@ -54,7 +53,7 @@ public class SelectClientForm extends JFrame {
         selectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                NewKartForm.client = new Client(table.getValueAt(clientList.getSelectedRow(), 0).toString(), table.getValueAt(clientList.getSelectedRow(), 1).toString(), Integer.parseInt(table.getValueAt(clientList.getSelectedRow(), 2).toString()));
+                NewKartForm.client = new Client(table.getValueAt(clientList.getSelectedRow(), 1).toString(), table.getValueAt(clientList.getSelectedRow(), 0).toString(), Integer.parseInt(table.getValueAt(clientList.getSelectedRow(), 2).toString()));
                 kartForm.update();
             }
         });

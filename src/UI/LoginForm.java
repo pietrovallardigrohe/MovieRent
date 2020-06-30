@@ -33,15 +33,28 @@ public class LoginForm extends JFrame {
         signinButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int security = -1;
+                try {
 
-                if(Database.db.verifyLogin(loginField.getText(), Hashing.hash(passwordField.getPassword()))) {
-
-                    setVisible(false);
-                    new MainForm();
+                    security = Database.db.verifyLogin(loginField.getText(), Hashing.hash(passwordField.getPassword()));
 
                 }
-                else {
-                    JOptionPane.showMessageDialog(null, "User or password incorrect");
+                catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                finally {
+
+                    if(security == 0 || security == 1) {
+                        setVisible(false);
+                        new MainForm(security);
+                    }
+                    else if(security == -1) {
+                        JOptionPane.showMessageDialog(null, "User or password incorrect");
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Unexpected Error");
+                    }
+
                 }
 
             }

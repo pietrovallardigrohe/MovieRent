@@ -2,12 +2,11 @@ package UI;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Database.Database;
-import User.User;
+import Rent.User;
 
 public class ManageUsersForm extends JFrame {
 

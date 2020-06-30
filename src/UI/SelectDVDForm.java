@@ -2,14 +2,13 @@ package UI;
 
 import Database.Database;
 import Rent.DVD;
+import Util.Date;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class SelectDVDForm extends JFrame {
 
@@ -21,7 +20,7 @@ public class SelectDVDForm extends JFrame {
     public SelectDVDForm(NewKartForm kartForm) {
 
         setContentPane(root);
-        setSize(800, 600);
+        setSize(600, 400);
         setVisible(true);
         setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2-this.getSize().width/2,Toolkit.getDefaultToolkit().getScreenSize().height/2-this.getSize().height/2 );
 
@@ -43,24 +42,30 @@ public class SelectDVDForm extends JFrame {
 
         dvdList.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         table.addColumn("Name");
-        table.addColumn("Release Date");
         table.addColumn("Price");
+        table.addColumn("Release Date");
         table.addColumn("Serial");
-
-        table.addRow(new String[] {"a", "b", "c", "d"});
 
         for(DVD dvd : Database.db.getDVDs()) {
 
-            table.addRow(new String[] {dvd.getName(), dvd.getReleaseDate().toString(), String.valueOf(dvd.getPrice()), dvd.getSerial()});
+            table.addRow(new String[] {dvd.getName(), String.valueOf(dvd.getPrice()), dvd.getReleaseDate().toString(), dvd.getSerial()});
 
         }
 
         selectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DefaultTableModel table = kartForm.getTable();
-                table.addRow(new String[] {dvdList.getValueAt(dvdList.getSelectedRow(), 0).toString(),dvdList.getValueAt(dvdList.getSelectedRow(), 1).toString(),dvdList.getValueAt(dvdList.getSelectedRow(), 2).toString(), dvdList.getValueAt(dvdList.getSelectedRow(), 3).toString()});
-                kartForm.update();
+
+                try {
+
+                    kartForm.getTable().addRow(new String[] {table.getValueAt(dvdList.getSelectedRow(), 0).toString(), table.getValueAt(dvdList.getSelectedRow(), 1).toString(), table.getValueAt(dvdList.getSelectedRow(), 2).toString(), table.getValueAt(dvdList.getSelectedRow(), 3).toString()});
+                    kartForm.dvds.add(new DVD(table.getValueAt(dvdList.getSelectedRow(), 0).toString(), Double.parseDouble(table.getValueAt(dvdList.getSelectedRow(), 1).toString()), Date.readDate(table.getValueAt(dvdList.getSelectedRow(), 2).toString()), table.getValueAt(dvdList.getSelectedRow(), 3).toString()));
+
+                }
+                catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "DVD initialization error");
+                }
+
             }
         });
 
